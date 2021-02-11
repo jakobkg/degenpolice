@@ -1,62 +1,31 @@
 declare module 'is-furry' {
-  type isFurryOptions = {
+  type isFurryMinOptions = {
     fold?: boolean,
     foldMode?: 'keep' | 'replace',
     foldReplacement?: string,
-    outputMode: 'boolean' | 'number' | 'string' | 'array',
     outputReplacement?: string,
     strictness?: 0 | 1 | 2,
     checkWordBoundaries?: boolean
   }
 
-  type isFurryBoolReturn = {
-    fold?: boolean,
-    foldMode?: 'keep' | 'replace',
-    foldReplacement?: string,
-    outputMode: 'boolean',
-    outputReplacement?: string,
-    strictness?: 0 | 1 | 2,
-    checkWordBoundaries?: boolean
-  }
+  type isFurryOptionsBoolReturn = isFurryMinOptions & { outputMode: 'boolean' }
 
-  type isFurryNumReturn = {
-    fold?: boolean,
-    foldMode?: 'keep' | 'replace',
-    foldReplacement?: string,
-    outputMode: 'number',
-    outputReplacement?: string,
-    strictness?: 0 | 1 | 2,
-    checkWordBoundaries?: boolean
-  }
+  type isFurryOptionsNumReturn = isFurryMinOptions & { outputMode: 'number' }
 
-  type isFurryStringReturn = {
-    fold?: boolean,
-    foldMode?: 'keep' | 'replace',
-    foldReplacement?: string,
-    outputMode: 'string',
-    outputReplacement?: string,
-    strictness?: 0 | 1 | 2,
-    checkWordBoundaries?: boolean
-  }
+  type isFurryOptionsStringReturn = isFurryMinOptions & { outputMode: 'string' }
 
-  type isFurryArrayReturn = {
-    fold?: boolean,
-    foldMode?: 'keep' | 'replace',
-    foldReplacement?: string,
-    outputMode: 'array',
-    outputReplacement?: string,
-    strictness?: 0 | 1 | 2,
-    checkWordBoundaries?: boolean
-  }
+  type isFurryOptionsArrayReturn = isFurryMinOptions & { outputMode: 'array' }
 
-  type isFurryReturnType<T extends isFurryOptions> = T extends isFurryBoolReturn
+  export type isFurryOptions = isFurryOptionsBoolReturn | isFurryOptionsNumReturn | isFurryOptionsStringReturn | isFurryOptionsArrayReturn;
+
+  type isFurryReturnType<T> = T extends isFurryOptionsBoolReturn
     ? boolean
-    : T extends isFurryNumReturn
+    : T extends isFurryOptionsNumReturn
     ? number
-    : T extends isFurryStringReturn
+    : T extends isFurryOptionsStringReturn
     ? string
     : string[];
 
 
-  export default function(string: string, options?: T): isFurryReturnType;
+  export default function<T extends isFurryMinOptions>(string: string, options?: T): isFurryReturnType<T>;
 }
