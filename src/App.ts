@@ -6,7 +6,7 @@ import hasDegeneracy, { isFurryOptions } from "is-furry";
 dotenv.config();
 
 const redisOptions: ClientOpts = {
-  host: 'db',
+  host: 'database',
   port: 6379,
   retry_strategy: (options) => {
 
@@ -67,4 +67,11 @@ discordClient.on('message', message => {
   }
 });
 
-discordClient.login(process.env.TOKEN);
+discordClient.login(process.env.TOKEN)
+  .catch(() => {
+    console.log('Unable to log in to Discord!');
+    console.log('To user this bot you need a valid bot token from Discord, see:');
+    console.log('https://discord.com/developers/docs/topics/oauth2#bots\n');
+    console.log('See readme for further instructions');
+    process.exit(1);
+  });
