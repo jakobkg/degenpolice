@@ -2,7 +2,9 @@
   "name": "degenpolice",
   "version": "0.1.0",
   "description": "Police the degens",
-  "repository": {"url": "https://github.com/jakobkg/degenpolice"},
+  "repository": {
+    "url": "https://github.com/jakobkg/degenpolice"
+  },
   "main": "App.js",
   "type": "commonjs",
   "scripts": {
