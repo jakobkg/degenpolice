@@ -6,9 +6,13 @@ import hasDegeneracy, { isFurryOptions } from "is-furry";
 dotenv.config();
 
 const redisOptions: ClientOpts = {
-  host: 'localhost',
+  host: 'database',
   port: 6379,
-  password: process.env.REDISPW
+  retry_strategy: (options) => {
+
+    options.total_retry_time = 10000;
+    return 500;
+  }
 };
 
 const degeneracyOptions: isFurryOptions = {
@@ -24,7 +28,7 @@ const redisClient = new RedisClient(redisOptions);
 
 redisClient.once('ready', () => {
   console.log('Redis Client started successfully');
-})
+});
 
 // INIT THE DISCORD STUFF
 
@@ -34,7 +38,7 @@ const signImageAttachment = new Discord.MessageAttachment('assets/sign.png');
 
 discordClient.once('ready', () => {
   console.log('Discord Client started successfully');
-})
+});
 
 discordClient.on('message', message => {
   const violationsInMsg: number = hasDegeneracy(message.content, degeneracyOptions);
@@ -61,6 +65,13 @@ discordClient.on('message', message => {
       redisClient.set(criminal, `${totalViolations}`);
     });
   }
-})
+});
 
-discordClient.login(process.env.TOKEN);
+discordClient.login(process.env.TOKEN)
+  .catch(() => {
+    console.log('Unable to log in to Discord!');
+    console.log('To user this bot you need a valid bot token from Discord, see:');
+    console.log('https://discord.com/developers/docs/topics/oauth2#bots\n');
+    console.log('See readme for further instructions');
+    process.exit(1);
+  });

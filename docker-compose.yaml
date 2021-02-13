@@ -1,0 +1,12 @@
+services:
+  database:
+    image: "redis:alpine"
+    volumes:
+      - database-volume:/data
+  bot:
+    build: .
+    depends_on:
+      - database
+    command: "npm run start"
+volumes:
+  database-volume:
