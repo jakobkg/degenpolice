@@ -60,9 +60,11 @@ discordClient.on('message', message => {
 
       const totalViolations: number = pastViolations + violationsInMsg;
 
-      message.channel.send(`Total gjeld: \$${totalViolations * 350}`);
-      message.channel.send(signImageAttachment);
-      redisClient.set(criminal, `${totalViolations}`);
+      getAuthorNick(message).then((authorNick) => {
+        message.channel.send(`${authorNick} sin totale gjeld: \$${totalViolations * 350}`);
+        message.channel.send(signImageAttachment);
+        redisClient.set(criminal, `${totalViolations}`);
+      });
     });
   }
 });
@@ -80,3 +82,9 @@ discordClient.login(process.env.TOKEN)
     console.log('See readme for further instructions');
     process.exit(1);
   });
+
+
+const getAuthorNick = async (message: Discord.Message) => {
+  const member = await message.guild?.member(message.author);
+  return member ? member.nickname : message.author.username;
+}
