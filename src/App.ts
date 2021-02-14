@@ -68,6 +68,11 @@ discordClient.on('message', message => {
 });
 
 discordClient.login(process.env.TOKEN)
+  .then(() => {
+    console.log('\nSuccessfully logged in as:', discordClient.user?.tag);
+    console.log('To invite your bot to your server, open the following in a browser:');
+    console.log(`https://discord.com/api/oauth2/authorize?client_id=${discordClient.user?.id}&permissions=116736&scope=bot\n`);
+  })
   .catch(() => {
     console.log('Unable to log in to Discord!');
     console.log('To user this bot you need a valid bot token from Discord, see:');
