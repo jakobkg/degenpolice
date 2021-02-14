@@ -61,6 +61,9 @@ discordClient.on('message', message => {
       const totalViolations: number = pastViolations + violationsInMsg;
 
       getAuthorNick(message).then((authorNick) => {
+        if (authorNick == null) {
+          authorNick = message.author.username;
+        } 
         message.channel.send(`${authorNick} sin totale gjeld: \$${totalViolations * 350}`);
         message.channel.send(signImageAttachment);
         redisClient.set(criminal, `${totalViolations}`);
