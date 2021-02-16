@@ -7,7 +7,7 @@ ENV NODE_ENV=production
 
 COPY package*.json ./
 COPY tsconfig.json ./
-COPY .env ./
+COPY config.json ./
 COPY ./src ./src
 
 RUN npm i
@@ -25,4 +25,4 @@ COPY ./assets ./assets
 RUN npm i
 
 COPY --from=builder /usr/bot/build ./build
-COPY --from=builder /usr/bot/.env ./
+COPY --from=builder /usr/bot/config.json ./

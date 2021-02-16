@@ -8,6 +8,6 @@ then
   exit
 fi
 
-echo "Docker Compse found"
+echo "Docker Compose found"
 
 docker-compose up --build --abort-on-container-exit
