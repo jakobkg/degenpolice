@@ -1,4 +1,5 @@
 import config from '../config.json';
+import { getAuthorNick } from './helpers'
 import { ClientOpts, RedisClient } from 'redis';
 import Discord from 'discord.js';
 import hasDegeneracy, { isFurryOptions } from "is-furry";
@@ -38,6 +39,8 @@ discordClient.once('ready', () => {
   console.log('Discord Client started successfully');
 });
 
+// MAIN LOGIC
+
 discordClient.on('message', message => {
   const violationsInMsg: number = hasDegeneracy(message.content, degeneracyOptions);
   let pastViolations: number;
@@ -70,6 +73,8 @@ discordClient.on('message', message => {
   }
 });
 
+// LOG IN TO DISCORD
+
 discordClient.login(config.token)
   .then(() => {
     console.log('\nSuccessfully logged in as:', discordClient.user?.tag);
@@ -83,9 +88,3 @@ discordClient.login(config.token)
     console.log('See readme for further instructions');
     process.exit(1);
   });
-
-
-const getAuthorNick = async (message: Discord.Message) => {
-  const member = await message.guild?.member(message.author);
-  return member ? member.nickname : message.author.username;
-}
