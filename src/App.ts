@@ -1,13 +1,11 @@
-import dotenv from "dotenv";
+import config from '../config.json';
 import { ClientOpts, RedisClient } from 'redis';
 import Discord from 'discord.js';
 import hasDegeneracy, { isFurryOptions } from "is-furry";
 
-dotenv.config();
-
 const redisOptions: ClientOpts = {
-  host: 'database',
-  port: 6379,
+  host: config.databaseAddress,
+  port: config.databasePort,
   retry_strategy: (options) => {
 
     options.total_retry_time = 10000;
@@ -72,7 +70,7 @@ discordClient.on('message', message => {
   }
 });
 
-discordClient.login(process.env.TOKEN)
+discordClient.login(config.token)
   .then(() => {
     console.log('\nSuccessfully logged in as:', discordClient.user?.tag);
     console.log('To invite your bot to your server, open the following in a browser:');

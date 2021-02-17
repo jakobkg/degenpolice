@@ -1,0 +1,8 @@
+{
+  "token": "",
+  "databaseAddress": "database",
+  "databasePort": 6379,
+  "defaultBehavior": "allow",
+  "allowList": [],
+  "denyList": []
+}

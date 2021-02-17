@@ -1,2 +1,13 @@
 #!/bin/bash
+
+echo "Starting bot, checking dependencies"
+
+if ! command -v docker-compose &> /dev/null
+then
+  echo "Docker Compose not installed! Exiting..."
+  exit
+fi
+
+echo "Docker Compose found"
+
 docker-compose up --build --abort-on-container-exit

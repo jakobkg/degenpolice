@@ -4,7 +4,7 @@ Degenpolice is a Discord Bot that will police anyone who sends "owo" things.
 
 ## Installation
 
-Create a `.env` file based on `.env.example` and fill in your tokens. Then you can spin up the bot in a docker container by running `startbot`
+Edit `config.json` to fill in your token, and preferences for what channels the police should or shouldn't patrol. Then you can spin up the bot in a docker container by running `startbot` or `startbot.bat` depending on your platform
 
 ```bash
 ~/degenpolice$ ./startbot
@@ -20,4 +20,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## License
 
-No license yet @jakobkg
+This project is licensed under the GPLv3 license, see the file LICENSE for details
