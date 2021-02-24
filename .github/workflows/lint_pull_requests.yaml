@@ -1,8 +1,8 @@
-name: Node.js CI
+name: Run ESLint on every PR
 
 on:
-  pull_request_target:
-    branches: [ $default-branch ]
+  pull_request:
+    types: [assigned, opened, edited, reopened, synchronize]
 
 jobs:
   build:
