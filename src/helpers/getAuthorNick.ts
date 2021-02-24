@@ -4,3 +4,4 @@ export async function getAuthorNick(message: Discord.Message): Promise<string | 
   const member = await message.guild?.member(message.author);
   return member ? member.nickname : message.author.username;
 }
+ 

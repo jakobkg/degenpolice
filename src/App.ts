@@ -33,7 +33,7 @@ redisClient.once('ready', () => {
 
 const discordClient = new Discord.Client();
 
-const signImageAttachment = new Discord.MessageAttachment('assets/sign.png');
+const signImageAttachment = new Discord.MessageAttachment('assets/sign.png')
 
 discordClient.once('ready', () => {
   console.log('Discord Client started successfully');
@@ -46,13 +46,13 @@ discordClient.on('message', message => {
   let pastViolations: number;
 
   if (!shouldRespond(message, config)) {
-    return;
+    return
   }
 
   if (violationsInMsg > 0) {
     const criminal: string = message.author.id;
     redisClient.get(criminal, (err, criminalRecord) => {
-      if (err) {
+       if (err) {
         console.log(`Something went wrong while getting ${criminal} from DB`);
         console.log(err);
         return;
