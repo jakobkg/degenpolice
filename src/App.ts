@@ -1,8 +1,8 @@
 import config from '../config.json';
-import { getAuthorNick } from './helpers'
+import { getAuthorNick, shouldRespond } from './helpers';
 import { ClientOpts, RedisClient } from 'redis';
 import Discord from 'discord.js';
-import hasDegeneracy, { isFurryOptions } from "is-furry";
+import hasDegeneracy, { isFurryOptions } from 'is-furry';
 
 const redisOptions: ClientOpts = {
   host: config.databaseAddress,
@@ -11,14 +11,14 @@ const redisOptions: ClientOpts = {
 
     options.total_retry_time = 10000;
     return 500;
-  }
+  },
 };
 
 const degeneracyOptions: isFurryOptions = {
   fold: false,
   outputMode: 'number',
   strictness: 1,
-  checkWordBoundaries: true
+  checkWordBoundaries: true,
 };
 
 // INIT THE REDIS STUFF
@@ -44,13 +44,18 @@ discordClient.once('ready', () => {
 discordClient.on('message', message => {
   const violationsInMsg: number = hasDegeneracy(message.content, degeneracyOptions);
   let pastViolations: number;
+
+  if (!shouldRespond(message, config)) {
+    return;
+  }
+
   if (violationsInMsg > 0) {
     const criminal: string = message.author.id;
     redisClient.get(criminal, (err, criminalRecord) => {
       if (err) {
-        console.log(`Something went wrong while getting {} from DB`, criminal);
+        console.log(`Something went wrong while getting ${criminal} from DB`);
         console.log(err);
-        return
+        return;
       }
 
       if (criminalRecord === null) {
@@ -64,8 +69,8 @@ discordClient.on('message', message => {
       getAuthorNick(message).then((authorNick) => {
         if (authorNick == null) {
           authorNick = message.author.username;
-        } 
-        message.channel.send(`${authorNick} sin totale gjeld: \$${totalViolations * 350}`);
+        }
+        message.channel.send(`${authorNick} sin totale gjeld: $${totalViolations * 350}`);
         message.channel.send(signImageAttachment);
         redisClient.set(criminal, `${totalViolations}`);
       });
