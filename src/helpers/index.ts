@@ -1,1 +1,2 @@
-export * from './getAuthorNick'
+export * from './getAuthorNick';
+export * from './shouldRespond';
