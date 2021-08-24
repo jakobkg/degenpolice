@@ -1,6 +1,6 @@
 # Degenpolice
 
-Degenpolice is a Discord Bot that will police anyone who sends "owo" things. 
+Do not uwu, $350 fine
 
 ## Installation
 
