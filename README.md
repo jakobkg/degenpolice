@@ -1,6 +1,6 @@
 # Degenpolice
 
-![image](https://user-images.githubusercontent.com/25484353/149094346-144de485-27dd-4497-b333-88feddf947ad.png)
+![image](https://user-images.githubusercontent.com/25484353/149094732-79e7b0ff-5d52-442e-b3d4-826137b5f218.png)
 
 Do not uwu, $350 fine
 
