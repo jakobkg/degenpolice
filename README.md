@@ -1,5 +1,7 @@
 # Degenpolice
 
+![image](https://user-images.githubusercontent.com/25484353/149094346-144de485-27dd-4497-b333-88feddf947ad.png)
+
 Do not uwu, $350 fine
 
 ## Installation
